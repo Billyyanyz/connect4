@@ -6,7 +6,6 @@
 
 struct UCT_Node
 {
-	int specific_action = 0;
 	int attempts = 0, wins = 0;
 	int parent = -1;
 	int children[MAXN] {0};
