@@ -43,11 +43,11 @@ int Board_Condition::end_game()
 				}
 				else if (turn == 2)
 				{
-					if (poss_res == 1)
+					if (poss_res == 0)
 					{
-						res = 1;
+						poss_res = -1;
 					}
-					else
+					else if (poss_res == -1)
 					{
 						poss_res = 1;
 					}
@@ -57,7 +57,8 @@ int Board_Condition::end_game()
 		}
 		if (res != 0) return res;
 	}
-	poss_res = 0;
+	if (poss_res == 1) return poss_res;
+	poss_res == 0;
 	for (int i = 0; i < N; i++)
 	{
 		if (top[i] != 0)
@@ -71,11 +72,11 @@ int Board_Condition::end_game()
 				}
 				else if (turn == 1)
 				{
-					if (poss_res == 2)
+					if (poss_res == 0)
 					{
-						res = 2;
+						poss_res = -2;
 					}
-					else
+					else if (poss_res == -2)
 					{
 						poss_res = 2;
 					}
@@ -85,6 +86,7 @@ int Board_Condition::end_game()
 		}
 		if (res != 0) return res;
 	}
+	if (poss_res == 2) return poss_res;
 	return 0;
 }
 

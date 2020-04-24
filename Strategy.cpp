@@ -49,6 +49,7 @@ Point* getPoint(const int M, const int N, const int* _top, const int* _board,
 	srand(lastX * N + lastY * M);
 	board_condition = Board_Condition(M, N, top, board, lastX, lastY, noX, noY, 2);
 	int board_end_game = board_condition.end_game();
+	std::cerr << board_end_game << std::endl;
 	if (board_end_game == 0)
 	{
 		int board_must_move = board_condition.must_move();
@@ -82,12 +83,7 @@ Point* getPoint(const int M, const int N, const int* _top, const int* _board,
 			if (node_list) delete[] node_list;
 		}
 	}
-	else if (board_end_game == 1)
-	{
-		y = rand() % N;
-		x = top[y] - 1;
-	}
-	else
+	else if (board_end_game == 2)
 	{
 		for (int i = 0; i < N; i++)
 		{
@@ -109,6 +105,12 @@ Point* getPoint(const int M, const int N, const int* _top, const int* _board,
 		}
 		x = top[y] - 1;
 	}
+	else
+	{
+		y = rand() % N;
+		x = top[y] - 1;
+	}
+
 
 	clearArray(M, N, board);
 	delete[] top;
