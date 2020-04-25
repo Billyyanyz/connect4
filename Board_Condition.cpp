@@ -28,65 +28,88 @@ int Board_Condition::end_game()
 	if (turn == 1 && machineWin(lastX, lastY, M, N, board)) return 2;
 	else if (turn == 2 && userWin(lastX, lastY, M, N, board)) return 1;
 	else if (isTie(N, top)) return 3 - turn;
+
 	int res = 0;
-	int poss_res = 0;
-	for (int i = 0; i < N; i++)
+	if (turn == 1)
 	{
-		if (top[i] != 0)
+		for (int i = 0; i < N; i++)
 		{
-			board[top[i] - 1][i] = 1;
-			if (userWin(top[i] - 1, i, M, N, board))
+			if (top[i] != 0)
 			{
-				if (turn == 1)
+				board[top[i] - 1][i] = 1;
+				if (userWin(top[i] - 1, i, M, N, board))
 				{
 					res = 1;
 				}
-				else if (turn == 2)
-				{
-					if (poss_res == 0)
-					{
-						poss_res = -1;
-					}
-					else if (poss_res == -1)
-					{
-						poss_res = 1;
-					}
-				}
+				board[top[i] - 1][i] = 0;
 			}
-			board[top[i] - 1][i] = 0;
+			if (res == 1) return res;
 		}
-		if (res != 0) return res;
 	}
-	if (poss_res == 1) return poss_res;
-	poss_res == 0;
-	for (int i = 0; i < N; i++)
+	else if (turn == 2)
 	{
-		if (top[i] != 0)
+		for (int i = 0; i < N; i++)
 		{
-			board[top[i] - 1][i] = 2;
-			if (machineWin(top[i] - 1, i, M, N, board))
+			if (top[i] != 0)
 			{
-				if (turn == 2)
+				board[top[i] - 1][i] = 2;
+				if (machineWin(top[i] - 1, i, M, N, board))
 				{
 					res = 2;
 				}
-				else if (turn == 1)
+				board[top[i] - 1][i] = 0;
+			}
+			if (res == 2) return res;
+		}
+	}
+
+	if (turn == 2)
+	{
+		for (int i = 0; i < N; i++)
+		{
+			if (top[i] != 0)
+			{
+				board[top[i] - 1][i] = 1;
+				if (userWin(top[i] - 1, i, M, N, board))
 				{
-					if (poss_res == 0)
+					if (res == -1)
 					{
-						poss_res = -2;
+						res = 1;
 					}
-					else if (poss_res == -2)
+					else if (res == 0)
 					{
-						poss_res = 2;
+						res = -1;
 					}
 				}
+				board[top[i] - 1][i] = 0;
 			}
-			board[top[i] - 1][i] = 0;
+			if (res == 1) return res;
 		}
-		if (res != 0) return res;
 	}
-	if (poss_res == 2) return poss_res;
+	else if (turn == 1)
+	{
+		for (int i = 0; i < N; i++)
+		{
+			if (top[i] != 0)
+			{
+				board[top[i] - 1][i] = 2;
+				if (machineWin(top[i] -1, i, M, N, board))
+				{
+					if (res == -2)
+					{
+						res = 2;
+					}
+					else if (res == 0)
+					{
+						res = -2;
+					}
+				}
+				board[top[i] - 1][i] = 0;
+			}
+			if (res == 2) return res;
+		}
+	}
+
 	return 0;
 }
 
